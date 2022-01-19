@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     private Animator anim;
     private bool isGrounded=false;
     private bool hasCollidedWithKillsPlayer=false;
+    HealthBar healthBarScript;
+    public int maxHealth=100;
+    public int currentHealth;
+    public GameOverSreen gameOverSreenScript;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +23,11 @@ public class Player : MonoBehaviour
         myPlayer=GetComponent<Rigidbody2D>();
         anim=GetComponent<Animator>();
         sr=GetComponent<SpriteRenderer>();
+        healthBarScript=FindObjectOfType<HealthBar>();
+
+        currentHealth=maxHealth;
+        healthBarScript.setHealth(currentHealth);
+        healthBarScript.setMaxHealth(maxHealth);
 
     }
 
@@ -55,8 +64,6 @@ public class Player : MonoBehaviour
         Run();
         //Attacking
         Attack();
-        //Death
-        Death();
     }
 
     void Run()
@@ -83,15 +90,11 @@ public class Player : MonoBehaviour
 
     public void Death()
     {
-        if (hasCollidedWithKillsPlayer)
-        {
+ 
             anim.SetBool("Death",true);
             Debug.Log("Player is Dead");
-
             this.gameObject.SetActive(false);
-
-
-        }
+            GameOver();
     }
 
     void Attack()
@@ -119,5 +122,29 @@ public class Player : MonoBehaviour
         {
             hasCollidedWithKillsPlayer=true;
         }
+
+        if (hasCollidedWithKillsPlayer && currentHealth>0f)
+        {
+            TakeDamage(10);
+        }
+  
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth-=damage;
+
+        healthBarScript.setHealth(currentHealth);
+        Debug.Log("Player's health is "+currentHealth);
+
+        if (currentHealth<10)
+        {
+            Death();
+        }
+    }
+
+    public void GameOver()
+    {
+        gameOverSreenScript.Setup(23);
     }
 }

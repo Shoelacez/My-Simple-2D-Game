@@ -37,7 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\Fire.cs" />
+     <Compile Include="Assets\Scripts\HealthBar.cs" />
+     <Compile Include="Assets\Scripts\CameraFollow.cs" />
+     <Compile Include="Assets\Scripts\GameOverSreen.cs" />
+     <None Include="Assets\Imported_Assets\fonts\font info.txt" />
      <None Include="Assets\Imported_Assets\Medieval King Pack 2\License.txt" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2020.1.16f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
